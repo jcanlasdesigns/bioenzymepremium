@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Bio Enzyme · Natural Harvest</title>
+    <!-- Fonts: Montserrat (primary) & Poppins (secondary) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FCFAF2;
+            font-family: 'Montserrat', sans-serif;
+            color: #2B3A2A;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .logo-text,
+        .nav-links a,
+        .btn-shop,
+        .hero-badge,
+        .stat h3,
+        .about-signature,
+        .product-info h3,
+        .section-title,
+        .cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        /* ----- WIDER CONTAINER ----- */
+        .container {
+            max-width: 1480px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(252, 250, 242, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(185, 155, 80, 0.15);
+            transition: 0.2s;
+        }
+
+        .nav-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 40px;
+            max-width: 1480px;
+            margin: 0 auto;
+        }
+
+        .logo-png img {
+            height: 44px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.04));
+            transition: transform 0.2s;
+        }
+        .logo-png img:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #3D5438;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #B89B4C;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: #B89B4C;
+        }
+
+        .btn-shop {
+            background: #4C7842;
+            color: white !important;
+            padding: 8px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            transition: all 0.25s;
+        }
+        .btn-shop:hover {
+            background: #B89B4C;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -8px rgba(184, 155, 76, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: #3D5438;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(252, 250, 242, 0.98);
+            backdrop-filter: blur(28px);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+        .mobile-menu a {
+            font-size: 1.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: #3D5438;
+            text-decoration: none;
+        }
+        .close-menu {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 38px;
+            cursor: pointer;
+            color: #3D5438;
+        }
+
+        /* HERO — with responsive background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 130px 0 70px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('images/hero-bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                background-image: url('images/hero-mobile-bg.png');
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(252, 250, 242, 0.70);
+            z-index: 1;
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .hero-badge img {
+            height: 36px;
+            width: auto;
+            display: block;
+        }
+        .hero-badge:hover {
+            transform: scale(1.04);
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            color: #2E4D2A;
+            margin-bottom: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+        .hero-text h1 span {
+            color: #B89B4C;
+            font-style: italic;
+            font-weight: 700;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #4A6140;
+            margin-bottom: 20px;
+            max-width: 90%;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+
+        .benefit-tags {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .benefit-tag {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #3D5438;
+        }
+        .benefit-tag i {
+            color: #B89B4C;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .btn-primary {
+            background: #4C7842;
+            color: white;
+            border: none;
+            padding: 12px 34px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            background: #B89B4C;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -12px #B89B4C;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #B89B4C;
+            padding: 12px 34px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            color: #4C7842;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #F5EDD6;
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+        .stat h3 {
+            font-size: 1.8rem;
+            color: #B89B4C;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+        .stat p {
+            color: #4A6140;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .splash-bg {
+            position: absolute;
+            width: 140%;
+            height: 140%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.2);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+            object-fit: contain;
+        }
+        .splash-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .hero-image-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(184, 155, 76, 0.15) 0%, rgba(184, 155, 76, 0.05) 40%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            pointer-events: none;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        .hero-bottle {
+            position: relative;
+            z-index: 1;
+            max-width: 85%;
+            width: 85%;
+            height: auto;
+            transform: rotate(-6deg) scale(1.0);
+            transform-origin: center center;
+            will-change: transform;
+            filter: drop-shadow(0 30px 50px rgba(184, 155, 76, 0.15)) drop-shadow(0 0 40px rgba(184, 155, 76, 0.08));
+            display: block;
+            margin: 0 auto;
+            transition: filter 0.4s ease;
+        }
+
+        .hero-bottle:hover {
+            filter: drop-shadow(0 40px 70px rgba(184, 155, 76, 0.25)) drop-shadow(0 0 60px rgba(184, 155, 76, 0.12));
+        }
+
+        /* ---- about ---- */
+        .about-section {
+            padding: 80px 0;
+            background: #FCFAF2;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-image {
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 0 18px 28px -12px rgba(0, 0, 0, 0.06);
+        }
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+        .about-content h2 {
+            font-size: 2.8rem;
+            color: #2E4D2A;
+            margin-bottom: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+        .about-content h2 span {
+            color: #B89B4C;
+            font-style: italic;
+            font-weight: 700;
+        }
+        .about-content p {
+            color: #4A6140;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        .about-signature {
+            font-family: 'Poppins', sans-serif;
+            color: #B89B4C;
+            font-size: 1.2rem;
+            margin-top: 16px;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+                   PRODUCT SECTION — FULL IMAGE, WIDE LAYOUT
+                   ============================================================ */
+        .products-section {
+            padding: 80px 0;
+            background: #F8F3E3;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            color: #2E4D2A;
+            margin-bottom: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+        .section-sub {
+            text-align: center;
+            color: #7A8F6A;
+            margin-bottom: 48px;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- PRODUCT CARD: full image on left, info on right --- */
+        .product-showcase {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.06);
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 0;
+        }
+
+        .product-image-wrap {
+            background: linear-gradient(145deg, #F5F0E0 0%, #EDE8D8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px;
+            min-height: 500px;
+            width: 100%;
+        }
+        .product-image-wrap img {
+            width: 100%;
+            height: 100%;
+            max-height: 520px;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.06));
+        }
+      /**  .product-image-wrap img:hover {
+            transform: scale(1.03);
+        }**/
+
+        .product-info-wrap {
+            padding: 50px 50px 44px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-info-wrap .product-badge {
+            display: inline-block;
+            background: rgba(184, 155, 76, 0.12);
+            color: #B89B4C;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 18px;
+            border-radius: 40px;
+            margin-bottom: 14px;
+            align-self: flex-start;
+        }
+
+        .product-info-wrap .product-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #2E4D2A;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .product-info-wrap .product-desc {
+            color: #6A7F5E;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            max-width: 95%;
+        }
+
+        .product-info-wrap .product-desc-extended {
+            color: #5A6F4E;
+            font-size: 0.92rem;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            max-width: 95%;
+        }
+
+        /* Short benefits — only 4 key highlights */
+        .short-benefits {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            margin-bottom: 24px;
+        }
+        .short-benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #3D5438;
+        }
+        .short-benefit i {
+            color: #B89B4C;
+            font-size: 0.9rem;
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .product-info-wrap .btn-learn {
+            background: transparent;
+            border: 1.5px solid #B89B4C;
+            padding: 10px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            color: #4C7842;
+            cursor: pointer;
+            transition: 0.25s;
+            align-self: flex-start;
+            font-size: 0.9rem;
+        }
+        .product-info-wrap .btn-learn:hover {
+            background: #B89B4C;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -10px rgba(184, 155, 76, 0.3);
+        }
+
+        /* ---- TESTIMONIALS (WIDE + BIGGER CARDS) ---- */
+        .testimonials {
+            background: #FCFAF2;
+            padding: 80px 0;
+            border-radius: 56px;
+            border: 1px solid rgba(184, 155, 76, 0.12);
+            max-width: 1480px;
+            margin: 10px auto;
+        }
+        .testimonials .container {
+            max-width: 1480px;
+            padding: 0 40px;
+        }
+
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+        .video-card {
+            width: 380px;
+            /* bigger cards */
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+        }
+        .video-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.08);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56%;
+            background: #E8DFC8;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-info {
+            padding: 22px 20px;
+        }
+        .video-info h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: #2E4D2A;
+            font-size: 1.1rem;
+        }
+        .video-info p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            color: #4A6140;
+            font-size: 0.95rem;
+        }
+        .stars {
+            color: #D4AF37;
+            margin: 6px 0;
+            font-size: 1.1rem;
+        }
+
+        /* ---- CTA (WIDE) ---- */
+        .cta {
+            background: #4C7842;
+            border-radius: 48px;
+            padding: 56px 36px;
+            text-align: center;
+            color: white;
+            margin: 50px auto;
+            max-width: 1400px;
+        }
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+        .cta p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        .btn-cta {
+            background: #B89B4C;
+            color: white;
+            border: none;
+            padding: 14px 46px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-cta:hover {
+            background: #A88A3C;
+            transform: scale(1.02);
+        }
+
+        /* ---- footer ---- */
+        footer {
+            background: #2E4D2A;
+            color: #E4EDDA;
+            padding: 48px 0 28px;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
+        }
+        .footer-grid h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .footer-grid p,
+        .footer-grid a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            color: #E4EDDA;
+            text-decoration: none;
+        }
+        .footer-grid a:hover {
+            color: #B89B4C;
+        }
+        .social-icons {
+            display: flex;
+            gap: 18px;
+            margin-top: 12px;
+        }
+        .social-icons a {
+            color: #E4EDDA;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+        .social-icons a:hover {
+            color: #B89B4C;
+            transform: translateY(-2px);
+        }
+
+        /* ---- responsive ---- */
+        @media (max-width: 1100px) {
+            .product-showcase {
+                grid-template-columns: 1fr 1fr;
+                max-width: 100%;
+            }
+            .product-image-wrap {
+                min-height: 350px;
+                padding: 30px;
+            }
+            .product-image-wrap img {
+                max-height: 350px;
+            }
+            .video-card {
+                width: 320px;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .container {
+                padding: 0 24px;
+            }
+            .nav-flex {
+                padding: 12px 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            .hero-text p {
+                max-width: 100%;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .benefit-tags {
+                align-items: center;
+            }
+            .hero-bottle {
+                max-width: 65%;
+                transform: rotate(-3deg) scale(0.9);
+            }
+            .splash-bg {
+                width: 150%;
+                height: 150%;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 32px;
+            }
+            .about-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .product-showcase {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .product-image-wrap {
+                min-height: 280px;
+                padding: 30px;
+            }
+            .product-image-wrap img {
+                max-height: 250px;
+                width: auto;
+            }
+            .product-info-wrap {
+                padding: 28px 32px 36px;
+                text-align: center;
+                align-items: center;
+            }
+            .product-info-wrap .product-badge {
+                align-self: center;
+            }
+            .product-info-wrap .product-desc {
+                max-width: 100%;
+            }
+            .product-info-wrap .product-desc-extended {
+                max-width: 100%;
+            }
+            .short-benefits {
+                grid-template-columns: 1fr 1fr;
+                text-align: left;
+            }
+            .product-info-wrap .btn-learn {
+                align-self: center;
+            }
+
+            .testimonials {
+                border-radius: 32px;
+                margin: 10px 16px;
+            }
+            .testimonials .container {
+                padding: 0 20px;
+            }
+            .video-card {
+                width: 340px;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            .social-icons {
+                justify-content: center;
+            }
+            .cta {
+                max-width: 100%;
+                margin: 30px 16px;
+                padding: 40px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .splash-bg {
+                width: 120%;
+                height: 120%;
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.55;
+            }
+            .hero-bottle {
+                max-width: 75%;
+                width: 75%;
+                transform: rotate(-3deg) scale(1.0);
+            }
+            .hero-image-wrapper::after {
+                width: 60%;
+                height: 60%;
+            }
+            .product-image-wrap {
+                min-height: 220px;
+                padding: 20px;
+            }
+            .product-image-wrap img {
+                max-height: 200px;
+            }
+            .testimonials {
+                border-radius: 28px;
+                margin: 10px 12px;
+                padding: 50px 0;
+            }
+            .video-card {
+                width: 100%;
+                max-width: 380px;
+            }
+            .cta {
+                border-radius: 32px;
+                padding: 32px 20px;
+                margin: 30px 12px;
+            }
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            .hero-bottle {
+                max-width: 80%;
+                width: 80%;
+                transform: rotate(-2deg) scale(1.0);
+            }
+            .splash-bg {
+                width: 110%;
+                height: 110%;
+                transform: translate(-50%, -50%) scale(1.05);
+                opacity: 0.5;
+            }
+            .hero-badge img {
+                height: 28px;
+            }
+            .benefit-tag {
+                font-size: 0.85rem;
+            }
+            .btn-primary,
+            .btn-outline {
+                padding: 10px 22px;
+                font-size: 0.9rem;
+            }
+            .stat h3 {
+                font-size: 1.4rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .about-content h2 {
+                font-size: 1.8rem;
+            }
+            .cta h2 {
+                font-size: 1.4rem;
+            }
+
+            .product-image-wrap {
+                min-height: 250px;
+                padding: 0px;
+            }
+            .product-image-wrap img {
+                max-height: 250px;
+            }
+            .product-info-wrap .product-name {
+                font-size: 1.8rem;
+            }
+            .product-info-wrap {
+                padding: 20px 20px 28px;
+            }
+            .short-benefits {
+                grid-template-columns: 1fr;
+                text-align: left;
+                gap: 6px;
+            }
+            .short-benefit {
+                font-size: 0.8rem;
+            }
+            .product-showcase {
+                border-radius: 28px;
+            }
+            .product-info-wrap .product-desc {
+                font-size: 0.9rem;
+            }
+            .product-info-wrap .product-desc-extended {
+                font-size: 0.85rem;
+            }
+
+            .testimonials {
+                border-radius: 24px;
+                margin: 10px 8px;
+                padding: 40px 0;
+            }
+            .testimonials .container {
+                padding: 0 16px;
+            }
+            .video-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            .cta {
+                border-radius: 28px;
+                padding: 28px 16px;
+                margin: 24px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-flex">
+            <div class="logo-png">
+                <img src="images/bio-logo-new.png" alt="BioEnzyme logo">
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">Story</a>
+                <a href="#products">Products</a>
+                <a href="#stories">Voices</a>
+                <a href="#shop" class="btn-shop">Shop →</a>
+            </div>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" id="closeMenu">&times;</div>
+        <a href="#home">Home</a>
+        <a href="#about">Story</a>
+        <a href="#products">Products</a>
+        <a href="#stories">Voices</a>
+        <a href="#shop">Shop</a>
+    </div>
+
+    <main>
+        <!-- HERO -->
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <img src="images/badge.png" alt="Premium Bio Enzyme" />
+                    </div>
+                    <h1><span>New Look!</span><br>Inspired by Nature. Refined for Today</h1>
+                    <p>30 fruits, vegetables & herbs. Fermented with care. Alive with probiotics.</p>
+                    <div class="benefit-tags">
+                        <div class="benefit-tag"><i class="fas fa-check-circle"></i> Premium Quality</div>
+                        <div class="benefit-tag"><i class="fas fa-check-circle"></i> Healthy Lifestyle</div>
+                        <div class="benefit-tag"><i class="fas fa-check-circle"></i> Naturally Refreshing</div>
+                    </div>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="alert('Discover our collection')">Explore ferments</button>
+                        <button class="btn-outline" onclick="alert('Watch the film')"><i class="fas fa-play" style="margin-right: 6px;"></i> Watch story</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat"><h3>30+</h3><p>fruits & herbs</p></div>
+                        <div class="stat"><h3>100%</h3><p>natural</p></div>
+                        <div class="stat"><h3>0%</h3><p>additives</p></div>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <div class="splash-bg">
+                        <img src="images/splash.png" alt="Splash effect" />
+                    </div>
+                    <img class="hero-bottle" src="images/bottle.png" alt="Bio Enzyme Bottle" />
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-image">
+                        <img src="images/organic.png" alt="Harvest fermentation">
+                    </div>
+                    <div class="about-content">
+                        <h2>crafted with <span>nature's wisdom</span></h2>
+                        <p>Since 1994, we've been perfecting the art of wild fermentation. Our enzymes are born from organic fruits, vegetables, and herbs — slowly fermented to preserve living nutrients. No pasteurization, no filtering. Just pure, potent goodness.</p>
+                        <p>Every bottle is a testament to our commitment: premium quality, locally trusted for over 30 years. Drink healthily, live vibrantly.</p>
+                        <div class="about-signature">— Bio Enzyme Harvest</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT SECTION -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2 class="section-title">Our Signature Blend</h2>
+                <div class="section-sub">wild fermented · alive with goodness · 30+ fruits & herbs</div>
+
+                <div class="product-showcase">
+                    <div class="product-image-wrap">
+                        <img src="images/product.png" alt="Bio Enzyme Product" />
+                    </div>
+                    <div class="product-info-wrap">
+                        <span class="product-badge">✦ Premium</span>
+                        <h3 class="product-name">Bio Enzyme</h3>
+                        <p class="product-desc">
+                            Fermented wellness in every drop. Made from 30+ organic fruits, vegetables & herbs.
+                        </p>
+                        <p class="product-desc-extended">
+                            Our signature blend is carefully crafted through wild fermentation to preserve the full spectrum of living nutrients, enzymes, and probiotics. Each batch is aged to perfection, delivering a potent, alive elixir that supports your body's natural vitality.
+                        </p>
+                        <div class="short-benefits">
+                            <div class="short-benefit"><i class="fas fa-check-circle"></i> Boosts Energy & Immunity</div>
+                            <div class="short-benefit"><i class="fas fa-check-circle"></i> Rich in Antioxidants</div>
+                            <div class="short-benefit"><i class="fas fa-check-circle"></i> Supports Digestion</div>
+                            <div class="short-benefit"><i class="fas fa-check-circle"></i> 100% Natural Ingredients</div>
+                        </div>
+                        <button class="btn-learn" onclick="alert('Learn more about Bio Enzyme')">Learn More →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS — WIDE + BIGGER CARDS -->
+        <section id="stories" class="testimonials">
+            <div class="container">
+                <h2 class="section-title">Testimonials</h2>
+                <div class="section-sub">watch how enzymes transformed lives</div>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/-J1Kiz8Pe-I?si=8Sd1PIto4OhoUsHs" allowfullscreen></iframe></div>
+                        <div class="video-info"><h4>Sophia Chen</h4><div class="stars">★★★★★</div><p>“Digestion never felt better.”</p></div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/KqGC-5lq3Cw?si=07LuCZJbZAissSlO" allowfullscreen></iframe></div>
+                        <div class="video-info"><h4>Marcus V.</h4><div class="stars">★★★★★</div><p>“Pure energy in every drop.”</p></div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/-QfHagGIoCg?si=I2_qEx7viRNndaqP" allowfullscreen></iframe></div>
+                        <div class="video-info"><h4>Priya Sharma</h4><div class="stars">★★★★½</div><p>“Alive, vibrant, real.”</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA — WIDE -->
+        <section class="container">
+            <div class="cta">
+                <i class="fas fa-flask" style="font-size: 44px; opacity: 0.9;"></i>
+                <h2>premium quality · since 1994</h2>
+                <p style="max-width: 500px; margin: 12px auto;">100% natural ingredients, wild fermented for living wellness.</p>
+                <button class="btn-cta" onclick="alert('Shop now')">Shop now →</button>
+            </div>
+        </section>
+    </main>
+
+    <footer id="shop">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo-png" style="margin-bottom: 8px;">
+                        <img src="images/bio-logo-footer.png" alt="BioEnzyme" style="height:36px;">
+                    </div>
+                    <p style="color:#C6D9B8; margin-top: 8px;">Premium • Healthy • Natural</p>
+                </div>
+                <div><h4>Explore</h4><p><a href="#">Our story</a></p><p><a href="#">Wholesale</a></p><p><a href="#">Lab reports</a></p></div>
+                <div><h4>Support</h4><p><a href="#">FAQ</a></p><p><a href="#">Shipping</a></p><p><a href="#">Contact</a></p></div>
+                <div><h4>Connect</h4><div class="social-icons"><a href="#" onclick="alert('FB')"><i class="fab fa-facebook-f"></i></a><a href="#" onclick="alert('X')"><i class="fab fa-x-twitter"></i></a><a href="#" onclick="alert('IG')"><i class="fab fa-instagram"></i></a><a href="#" onclick="alert('TikTok')"><i class="fab fa-tiktok"></i></a><a href="#" onclick="alert('Messenger')"><i class="fab fa-facebook-messenger"></i></a></div><p style="margin-top: 12px;"><i class="fas fa-envelope"></i> hello@bioenzyme.com</p></div>
+            </div>
+            <hr style="border-color:#4A7342; margin: 28px 0 16px;">
+            <p style="text-align:center; font-size:0.75rem; opacity:0.7;">© 2026 BioEnzyme — wild fermented living blends. Made from fruits, vegetables & herbs.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        hamburger.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFunc);
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMenuFunc();
+                const id = link.getAttribute('href');
+                if (id && id !== '#') {
+                    e.preventDefault();
+                    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.splash-bg', {
+            scale: 0.4,
+            duration: 2.2,
+            ease: "power2.out",
+            delay: 0.1,
+            transformOrigin: "center center",
+            onComplete: () => {
+                gsap.set('.splash-bg', { clearProps: "scale" });
+            }
+        });
+
+        gsap.from('.hero-bottle', {
+            scale: 0.3,
+            rotate: -8,
+            duration: 2.0,
+            ease: "power2.out",
+            delay: 0.2,
+            transformOrigin: "center center",
+            onComplete: () => {
+                gsap.set('.hero-bottle', { clearProps: "scale,rotate" });
+            }
+        });
+
+        gsap.from('.hero-image-wrapper::after', {
+            scale: 0.2,
+            opacity: 0,
+            duration: 1.8,
+            ease: "power2.out",
+            delay: 0.3
+        });
+
+        gsap.from('.hero-text', { opacity: 0, y: 50, duration: 0.9, ease: 'power2.out', delay: 0.1 });
+        gsap.from('.hero-stats', { opacity: 0, y: 30, duration: 0.7, delay: 0.6, ease: 'power2.out' });
+        gsap.from('.benefit-tags', { opacity: 0, y: 30, duration: 0.7, delay: 0.4, ease: 'power2.out' });
+
+        gsap.utils.toArray('.product-showcase, .video-card, .cta, .about-grid, .section-title').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.style.background = window.scrollY > 30 ? 'rgba(252, 250, 242, 0.96)' : 'rgba(252, 250, 242, 0.92)';
+        });
+    </script>
+</body>
+</html>
